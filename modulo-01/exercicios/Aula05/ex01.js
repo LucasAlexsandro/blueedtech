@@ -1,13 +1,29 @@
 
+/*
+    1 - Faça um programa que leia um nome de usuário 
+    e a sua senha e não aceite a senha igual ao 
+    nome do usuário, mostrando uma mensagem de erro 
+    e voltando a pedir as informações.
+*/
 
-console.log();
+const prompt = require("prompt-sync")();
 
-let num1 = 15;
-let num2 = 20;
 
-while(num1 < num2){
-    console.log(`O ${num1}`);
-    num1++;
+console.log("Digite o nome do usuario: ");
+let nomeUsuario = prompt()
+console.log("Digite a senha do usuario: ");
+let senhaUsuario = prompt();
+
+let tentativasLogin = 0;
+
+
+while (nomeUsuario == senhaUsuario)
+{
+    console.log("Dados inválidos!");
+    tentativasLogin++;
+    console.log()
+    console.log("Digite o nome do usuario: ");
+    nomeUsuario = prompt()
+    console.log("Digite a senha do usuario: ");
+    senhaUsuario = prompt();
 }
-
-console.log();
