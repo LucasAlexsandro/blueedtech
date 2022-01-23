@@ -1,38 +1,58 @@
 //Fazendo o require do prompt
 const prompt = require("prompt-sync")();
 
-//Iniciando a História
+// INICIANDO A HISTÓRIA
 
 console.log();
 console.log(`Um astronalta que viajou para o espaço em busca de um novo planeta habitável para a população da terra`);
 console.log();
 
-//Definindo o heroi
+// DEFININDO O PERSONAGEM - E SUAS VERIFICAÇÕES
 
-let nomeHeroi = prompt("Digite o nome do Herói: ");
-let idadeHeroi = +prompt("Digite a idade do Herói: ");
+let nomePersonagem = prompt("Digite o nome do personagem: ");
+
+while(nomePersonagem.length < 3){
+    console.log("!ALERTA! - Você não informou um nome válido, insira corretamente os dados!");
+    nomePersonagem = prompt("Digite o nome do personagem: ");
+}
+
+let idadePersonagem = +prompt("Digite a idade do personagem: ");
+
+while(idadePersonagem < 18){
+    console.log("!ALERTA! - Você não informou uma idade válida para a missão, insira corretamente os dados!");
+    idadePersonagem = +prompt("Digite a idade do personagem: ");
+}
+
 
 console.log();
 console.log();
 
-//Informando Objetivo para o heroi
+// INFORMANDO OBJETIVOS
 
 console.log(`
-            Olá ${nomeHeroi}, seja bem vindo a sua hitória!!!
-            `)
+            ################ INTRODUÇÃO #####################
+            Olá ${nomePersonagem}, seja bem vindo a sua hitória!!!
+`)
 console.log(`
              A terra está passando por vários eventos naturais e a escassez de comida está muito grande \n
              Precisaremos de sua ajuda para uma missão espacial em busca de um novo planeta \n
              que seja habitável para os humanos
-            `);
+`);
+
+console.log();
+console.log();
 
 
 // CRIANDO PERGUNTAS
 
 let pergunta1 = prompt("A decolagem da nave foi bem sucedida? ");
-let pergunta2 = prompt("Houve um problema sistemico na nave e você precisou pilotar manualmente, você conseguiu realizar a pilotagem? ");
-let pergunta3 = prompt("A decolagem da nave foi bem sucedida? ");
+console.log();
+let pergunta2 = prompt("A nave conseguiu se estabilizar no espaço? ");
+console.log();
+let pergunta3 = prompt("Houve um problema sistemico na nave e você precisou pilotar manualmente, você conseguiu realizar a pilotagem? ");
+console.log();
 let pergunta4 = prompt("Conseguiu achar um planeta hábitavel? ");
+console.log();
 let pergunta5 = prompt("Conseguiu transmitir a mensagem final informando se o planeta é habitável ou não? ");
 
 let contadorSim = 0;
@@ -68,26 +88,24 @@ if (pergunta5 === 'sim') {
 }
 
 console.log();
-console.log(`Você informou ${contadorSim} respostas SIM`);
-console.log(`Você informou ${contadorNao} respostas NÃO`);
+console.log(`Você completou ${contadorSim} objetivos da missão`);
+console.log(`Você não completou ${contadorNao} objetivos da missão`);
 console.log();
 
 //Exibindo informação final de acordo com a resposta informada
 
-if (contadorSim == 0) {
+if (contadorSim === 0) {
     console.log("Você falhou miseravelmente.");
 }
-if (contadorSim == 1 || 2) {
+if (contadorSim === 1 || contadorSim === 2) {
     console.log("Você falha, mas ainda consegue fugir da situação.");
 }
-if (contadorSim == 3) {
+if (contadorSim === 3) {
     console.log("Você chega perto de conseguir alcançar seu objetivo, mas acaba falhando por pouco.");
 }
-if (contadorSim == 4) {
-    console.log("Depois de muito esforço você conquista seu objetivo, embora não de maneira perfeita.");
+if (contadorSim === 4) {
+    console.log("Depois de muito esforço você conquista seu objetivo de chegar ao planeta, mas não transmitiu a mensagem para a terra");
 }
-if (contadorSim == 5) {
+if (contadorSim === 5) {
     console.log("Você triunfa de maneira inquestionável e seus feitos serão lembrados por muitas gerações.");
-} else {
-    console.log("Opção inválida");
 }
