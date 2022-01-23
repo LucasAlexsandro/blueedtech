@@ -4,7 +4,13 @@ const prompt = require("prompt-sync")();
 // INICIANDO A HISTÓRIA
 
 console.log();
-console.log(`Um astronalta que viajou para o espaço em busca de um novo planeta habitável para a população da terra`);
+console.log(`
+    ################ SINOPSE ####################
+    #  Um astronalta que viajou para o espaço   #
+    #  em busca de um novo planeta habitável    #
+    #  para a população da terra                #
+    ############################################`
+);
 console.log();
 
 // DEFININDO O PERSONAGEM - E SUAS VERIFICAÇÕES
@@ -30,13 +36,13 @@ console.log();
 // INFORMANDO OBJETIVOS
 
 console.log(`
-            ################ INTRODUÇÃO #####################
-            Olá ${nomePersonagem}, seja bem vindo a sua hitória!!!
+        ################ INTRODUÇÃO #####################
+        Olá ${nomePersonagem}, seja bem vindo a sua hitória!!!
 `)
 console.log(`
-             A terra está passando por vários eventos naturais e a escassez de comida está muito grande \n
-             Precisaremos de sua ajuda para uma missão espacial em busca de um novo planeta \n
-             que seja habitável para os humanos
+        A terra está passando por vários eventos naturais e a escassez de comida está muito grande \n
+        Precisaremos de sua ajuda para uma missão espacial em busca de um novo planeta \n
+        que seja habitável para os humanos
 `);
 
 console.log();
@@ -57,7 +63,6 @@ let pergunta5 = prompt("Conseguiu transmitir a mensagem final informando se o pl
 
 let contadorSim = 0;
 let contadorNao = 0;
-
 
 // VALIDANDO RESPOSTAS
 
