@@ -23,6 +23,7 @@ while (contador < 20){
     } else {
         impares.push(num);
     }
+    contador++;
 }
 
 console.log('Todos os numeros: ');
