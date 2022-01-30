@@ -12,9 +12,9 @@ let continuar = prompt("Deseja começar o jogo? Digite: S ou N  ")
 
 while (continuar == 'S' || continuar == 's') {
 
-    let elementos = ['PEDRA', 'PAPEL', 'TESOURA'];
+    let itens = ['PEDRA', 'PAPEL', 'TESOURA'];
     let pontosJogador = 0;
-    let pontosPC = 0;
+    let pontosMaquina = 0;
     let jogoEmpatado = 0;
 
     // Validação de nome de usuário do PC E DO HUMANO
@@ -36,7 +36,7 @@ while (continuar == 'S' || continuar == 's') {
         'Baymax'
     ];
 
-    let nomePC = Math.trunc(Math.random() * 8)
+    let nomeMaquina = Math.trunc(Math.random() * 8)
 
     // DEFININDO QUANTIDADE DE RODADAS
 
@@ -54,7 +54,7 @@ while (continuar == 'S' || continuar == 's') {
 
 
         // Validação de escolhas do jogador
-        while ((escolhaJogador != elementos[0]) && (escolhaJogador != elementos[1]) && (escolhaJogador != elementos[2])) {
+        while ((escolhaJogador != itens[0]) && (escolhaJogador != itens[1]) && (escolhaJogador != itens[2])) {
             console.log();
             console.log(`=====================================`);
             console.log(`ERRO, Você não fez a escolha de acordo com as regras!`)
@@ -67,36 +67,68 @@ while (continuar == 'S' || continuar == 's') {
 
         // Verificação Escolha Jogador
 
-        if (escolhaJogador == elementos[0]) {
-            console.log(`O jogador ${nomeJogador} escolheu: ${elementos[0]}`)
-        } else if (escolhaJogador == elementos[1]) {
-            console.log(`O jogador ${nomeJogador} escolheu: ${elementos[1]}`)
-        } else if (escolhaJogador == elementos[2]) {
-            console.log(`O jogador ${nomeJogador} escolheu: ${elementos[2]}`)
+        console.log(escolhaJogador);
+        console.log(escolhaMaquina);
+
+        //['PEDRA', 'PAPEL', 'TESOURA'];
+
+        if (escolhaJogador == itens[0] && escolhaMaquina == 0) {
+            console.log("Jogo empatado");
+            jogoEmpatado++;
+        } else if (escolhaJogador == itens[1] && escolhaMaquina == 1) {
+            console.log("Jogo empatado");
+            jogoEmpatado++;
+        } else if (escolhaJogador == itens[2] && escolhaMaquina == 2) {
+            console.log("Jogo empatado");
+            jogoEmpatado++;
         }
-
-        // Verificação Escolha PC
-
-        if (escolhaMaquina == 0) {
-            console.log(`O Jogador ${nomeGerado[nomePC]} escolheu ${elementos[0]}`)
-        } else if (escolhaMaquina == 1) {
-            console.log(`O Jogador ${nomeGerado[nomePC]} escolheu ${elementos[1]}`)
-        } else if (escolhaMaquina == 2) {
-            console.log(`O Jogador ${nomeGerado[nomePC]} escolheu ${elementos[2]}`)
+        //['0 - PEDRA', '1 - PAPEL', '2 - TESOURA'];
+        // Iniciando contagem sem ser empate
+        else if (escolhaJogador == itens[0] && escolhaMaquina == 1) {
+            console.log(`O jogador ${nomeMaquina} venceu a rodada!`)
+            console.log(`O jogador ${nomeJogador} perdeu a rodada!`)
+            pontosMaquina++;
+        } else if (escolhaJogador == itens[1] == escolhaMaquina == 0) {
+            console.log(`O jogador ${nomeJogador} venceu a rodada!`)
+            console.log(`O jogador ${nomeMaquina} perdeu a rodada!`)
+            pontosJogador++;
+        } else if (escolhaJogador == itens[2] && escolhaMaquina == 1) {
+            console.log(`O jogador ${nomeJogador} venceu a rodada!`)
+            console.log(`O jogador ${nomeMaquina} perdeu a rodada!`)
+            pontosJogador++;
+        } else if (escolhaJogador == itens[1] && escolhaMaquina == 2) {
+            console.log(`O jogador ${nomeMaquina} venceu a rodada!`)
+            console.log(`O jogador ${nomeJogador} perdeu a rodada!`)
+            pontosMaquina++;
+        } else if (escolhaJogador == itens[2] && escolhaMaquina == 0){
+            console.log(`O jogador ${nomeMaquina} venceu a rodada!`)
+            console.log(`O jogador ${nomeJogador} perdeu a rodada!`)
+            pontosMaquina++;
         }
-
-        // Validações de Pontos
-
-        if(escolhaJogador == escolhaMaquina){
-            console.log(`O jogador ${nomeJogador} escolheu ${escolhaJogador}\n
-                         E o jogador ${nomePC} escolheu ${escolhaMaquina}`);
-            console.log('O jogo está empatado!');
+        else if (escolhaJogador == itens[0] && escolhaMaquina == 2){
+            console.log(`O jogador ${nomeJogador} venceu a rodada!`)
+            console.log(`O jogador ${nomeMaquina} perdeu a rodada!`)
+            pontosJogador++;
         }
 
     }
 
-    console.log("###########################################")
     console.log();
+    console.log(`=====================================`);
+    console.log("       RESULTADO FINAL DO JOGO       ")
+    console.log(`=====================================`);
+    console.log();
+    if (pontosJogador > pontosMaquina) {
+        console.log(`O jogador ${nomeJogador} venceu a partida com ${pontosJogador} pontos!`);
+        console.log(`E o jogador ${nomeMaquina} perdeu com ${pontosMaquina} pontos!`);
+    } else if (pontosMaquina > pontosJogador) {
+        console.log(`O jogador ${nomeMaquina} venceu a partida com ${pontosMaquina} pontos!`);
+        console.log(`E o jogador ${nomeJogador} perdeu com ${pontosJogador} pontos!`);
+    } else if (pontosJogador == pontosMaquina) {
+        console.log(`O jogador ${nomeJogador} e o jogador ${nomeMaquina} empataram com ${jogoEmpatado} pontos!`);
+    }
+
+    // DEFININDO SE DESEJA JOGAR NOVAMENTE!
     continuar = prompt("Deseja jogar novamente? 'S' ou 'N': ");
     if (continuar == 'n' || continuar == 'nao' || continuar == 'não') {
         console.log("Obrigado por jogar!")
