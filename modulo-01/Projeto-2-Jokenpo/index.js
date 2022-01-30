@@ -10,7 +10,7 @@ console.log();
 
 let continuar = prompt("Deseja começar o jogo? Digite: S ou N  ")
 
-while (continuar == 'S' || continuar == 's') {
+while (continuar == 'S' || continuar == 's' || continuar == 'sim' || continuar == 'SIM') {
 
     let itens = ['PEDRA', 'PAPEL', 'TESOURA'];
     let pontosJogador = 0;
@@ -65,12 +65,13 @@ while (continuar == 'S' || continuar == 's') {
 
         let escolhaMaquina = Math.trunc(Math.random() * 3)
 
-        // Verificação Escolha Jogador
+        // VERIFICAÇÃO DA ESCOLHA DO JOGADOR
 
         console.log(escolhaJogador);
         console.log(escolhaMaquina);
 
         //['PEDRA', 'PAPEL', 'TESOURA'];
+        // DEFININDO EMPATE
 
         if (escolhaJogador == itens[0] && escolhaMaquina == 0) {
             console.log("Jogo empatado");
@@ -85,47 +86,50 @@ while (continuar == 'S' || continuar == 's') {
         //['0 - PEDRA', '1 - PAPEL', '2 - TESOURA'];
         // Iniciando contagem sem ser empate
         else if (escolhaJogador == itens[0] && escolhaMaquina == 1) {
-            console.log(`O jogador ${nomeMaquina} venceu a rodada!`)
+            console.log(`O jogador ${nomeGerado[nomeMaquina]} venceu a rodada!`)
             console.log(`O jogador ${nomeJogador} perdeu a rodada!`)
             pontosMaquina++;
         } else if (escolhaJogador == itens[1] == escolhaMaquina == 0) {
             console.log(`O jogador ${nomeJogador} venceu a rodada!`)
-            console.log(`O jogador ${nomeMaquina} perdeu a rodada!`)
+            console.log(`O jogador ${nomeGerado[nomeMaquina]} perdeu a rodada!`)
             pontosJogador++;
         } else if (escolhaJogador == itens[2] && escolhaMaquina == 1) {
             console.log(`O jogador ${nomeJogador} venceu a rodada!`)
-            console.log(`O jogador ${nomeMaquina} perdeu a rodada!`)
+            console.log(`O jogador ${nomeGerado[nomeMaquina]} perdeu a rodada!`)
             pontosJogador++;
         } else if (escolhaJogador == itens[1] && escolhaMaquina == 2) {
-            console.log(`O jogador ${nomeMaquina} venceu a rodada!`)
+            console.log(`O jogador ${nomeGerado[nomeMaquina]} venceu a rodada!`)
             console.log(`O jogador ${nomeJogador} perdeu a rodada!`)
             pontosMaquina++;
         } else if (escolhaJogador == itens[2] && escolhaMaquina == 0){
-            console.log(`O jogador ${nomeMaquina} venceu a rodada!`)
+            console.log(`O jogador ${nomeGerado[nomeMaquina]} venceu a rodada!`)
             console.log(`O jogador ${nomeJogador} perdeu a rodada!`)
             pontosMaquina++;
         }
         else if (escolhaJogador == itens[0] && escolhaMaquina == 2){
             console.log(`O jogador ${nomeJogador} venceu a rodada!`)
-            console.log(`O jogador ${nomeMaquina} perdeu a rodada!`)
+            console.log(`O jogador ${nomeGerado[nomeMaquina]} perdeu a rodada!`)
             pontosJogador++;
         }
 
     }
+
+    // Resultado final do jogo Jokenpo
 
     console.log();
     console.log(`=====================================`);
     console.log("       RESULTADO FINAL DO JOGO       ")
     console.log(`=====================================`);
     console.log();
+
     if (pontosJogador > pontosMaquina) {
         console.log(`O jogador ${nomeJogador} venceu a partida com ${pontosJogador} pontos!`);
-        console.log(`E o jogador ${nomeMaquina} perdeu com ${pontosMaquina} pontos!`);
+        console.log(`E o jogador ${nomeGerado[nomeMaquina]} perdeu com ${pontosMaquina} pontos!`);
     } else if (pontosMaquina > pontosJogador) {
-        console.log(`O jogador ${nomeMaquina} venceu a partida com ${pontosMaquina} pontos!`);
+        console.log(`O jogador ${nomeGerado[nomeMaquina]} venceu a partida com ${pontosMaquina} pontos!`);
         console.log(`E o jogador ${nomeJogador} perdeu com ${pontosJogador} pontos!`);
     } else if (pontosJogador == pontosMaquina) {
-        console.log(`O jogador ${nomeJogador} e o jogador ${nomeMaquina} empataram com ${jogoEmpatado} pontos!`);
+        console.log(`O jogador ${nomeJogador} e o jogador ${nomeGerado[nomeMaquina]} empataram com ${jogoEmpatado} pontos!`);
     }
 
     // DEFININDO SE DESEJA JOGAR NOVAMENTE!
