@@ -8,6 +8,7 @@
     - SISTEMA DE DIAS
     - SISTEMA DE MENU INICIAL
     - MODO DE JOGO [EASY - HARD - VERY HARD]
+    // DEFINICAR UMA MISSÃO INICIAL PARA GANHAR COINS
 */
 
 /* HISTORIA DO JOGO
@@ -22,61 +23,66 @@ const prompt = require("prompt-sync")();
 
 /*============================== DEFININDO INICIO DO CODIGO =====================================*/
 
-// IDEIA PARA DEFINIÇÃO DE INIMIGOS DO PROJETO
-let inimigos = [
-    {
-        nome: 'Monster',
-        level: 1,
-        dano: 10,
-        frase: ""
-    },
-    {
-        nome: 'Monster 2',
-        level: 3,
-        dano: 20,
-        frase: ""
-    },
-    {
-        nome: 'Monster 3',
-        level: 4,
-        dano: 30,
-        frase: ""
-    }
-];
+// MENU INICIAL
 
-function menuInicial()
-{
-    console.log("############ MENU INICIAL #############");
-    console.log();
-    console.log("[1] - COMEÇAR UM NOVO JOGO");
-    console.log("[2] - RESETAR O JOGO");
-    console.log("[3] - SAIR DO JOGO");
-    console.log();
-    console.log("#######################################");
+console.log();
+
+console.log("############ MENU INICIAL #############");
+console.log("Digite sua escolha");
+console.log("[1] - COMEÇAR UM NOVO JOGO");
+console.log("[2] - SAIR DO JOGO");
+console.log("#######################################");
+let escolhaMenu = +prompt("Digite sua escolha: ");;
+
+
+// for(let vidas; vidas < totalVidas)
+
+
+// SELECIONE A DIFICULDADE DO JOGO
+
+// let niveisDificuldade = ['easy', 'hard', 'veryhard'];
+
+// console.log("Digite sua escolha");
+// console.log("[1] - EASY");
+// console.log("[2] - HARD");
+// console.log("[3] - VERYHARD");
+// let dificuldade = +prompt();
+
+
+let personagem = {
+    nome: function(nomePersonagem){
+
+    },
+    idade:"",
+    forca: "",
+    level: "",
+    moedas: "",
+    fome: "",
+    xp: "",
+    vida: ""
 }
 
-let dificuldade = ['easy', 'hard', 'veryhard'];
+// // IDEIA PARA DEFINIÇÃO DE INIMIGOS DO PROJETO
+// let inimigos = [{
+//         nome: 'Monster',
+//         level: 1,
+//         dano: 10,
+//         frase: ""
+//     },
+//     {
+//         nome: 'Monster 2',
+//         level: 3,
+//         dano: 20,
+//         frase: ""
+//     },
+//     {
+//         nome: 'Monster 3',
+//         level: 4,
+//         dano: 30,
+//         frase: ""
+//     }
+// ];
 
-function criarPersonagem()
-{
-    console.log("############ MENU INICIAL #############");
-    console.log();
-    console.log("[1] - CRIAR PERSONAGEM");
-    console.log("[2] - VOLTAR AO MENU");
-    console.log();
-    console.log("#######################################");
-}
+// let level = ['noob', 'expert', 'mestre']
 
 
-let level = ['noob', 'expert', 'mestre']
-
-
-// let personagem = {
-//     nome,
-//     idade,
-//     forca,
-//     level,
-//     moedas,
-//     fome,
-//     xp
-// }
