@@ -13,7 +13,7 @@
 
 /* HISTORIA DO JOGO
 
-
+    JOGADOR QUE RECEBE DINHEIRO AO MATAR MONSTROS
 
 */
 
@@ -25,14 +25,14 @@ const prompt = require("prompt-sync")();
 
 // MENU INICIAL
 
-console.log();
+// console.log();
 
-console.log("############ MENU INICIAL #############");
-console.log("Digite sua escolha");
-console.log("[1] - COMEÇAR UM NOVO JOGO");
-console.log("[2] - SAIR DO JOGO");
-console.log("#######################################");
-let escolhaMenu = +prompt("Digite sua escolha: ");;
+// console.log("############ MENU INICIAL #############");
+// console.log("Digite sua escolha");
+// console.log("[1] - COMEÇAR UM NOVO JOGO");
+// console.log("[2] - SAIR DO JOGO");
+// console.log("#######################################");
+// let escolhaMenu = +prompt("Digite sua escolha: ");;
 
 
 // for(let vidas; vidas < totalVidas)
@@ -40,27 +40,48 @@ let escolhaMenu = +prompt("Digite sua escolha: ");;
 
 // SELECIONE A DIFICULDADE DO JOGO
 
-// let niveisDificuldade = ['easy', 'hard', 'veryhard'];
+
+let personagem = {
+    nome: function getNome(nomePersonagem) {
+        return this.nome;
+    },
+    dificuldade: function (niveisDificuldade) {
+        if (niveisDificuldade == 1) {
+            console.log()
+        } else if (niveisDificuldade == 2) {
+            console.log()
+        } else if (niveisDificuldade == 3) {
+            console.log()
+        }
+    },
+    idade: "",
+    forca: function(forcaPersonagem){
+        if(this.dificuldade == 1){
+            this.forca == 80;
+        } else if (this.dificuldade == 2){
+            this.forca == 90;
+        } else if (this.dificuldade == 3){
+            this.forca == 100
+        }
+    },
+    level: "",
+    cash: "",
+    fome: "",
+    xp: "",
+    vida: "",
+    status: ""
+}
+
+personagem.nome = prompt("Digite o nome do personagem: ");
+console.log(personagem.nome)
+
+personagem.dificuldade = ['easy', 'hard', 'veryhard'];
 
 // console.log("Digite sua escolha");
 // console.log("[1] - EASY");
 // console.log("[2] - HARD");
 // console.log("[3] - VERYHARD");
 // let dificuldade = +prompt();
-
-
-let personagem = {
-    nome: function(nomePersonagem){
-
-    },
-    idade:"",
-    forca: "",
-    level: "",
-    moedas: "",
-    fome: "",
-    xp: "",
-    vida: ""
-}
 
 // // IDEIA PARA DEFINIÇÃO DE INIMIGOS DO PROJETO
 // let inimigos = [{
@@ -84,5 +105,3 @@ let personagem = {
 // ];
 
 // let level = ['noob', 'expert', 'mestre']
-
-
