@@ -41,6 +41,8 @@ console.log();
 //     }
 // }
 
+let nomePersonagem = prompt('Qual o nome do seu Personagem? ');
+let idadePersonagem = +prompt('Qual a idade do seu Personagem? ');
 
 // IDEIA PARA DEFINIÇÃO DE INIMIGOS DO PROJETO
 let monstros = {
@@ -70,8 +72,8 @@ let monstros = {
 // DEFININDO O PERSONAGEM
 
 let personagem = {
-    nome: prompt('Qual o nome do seu Personagem? '),
-    idade: prompt('Qual a idade do seu personagem? '),
+    nome: nomePersonagem,
+    idade: idadePersonagem,
     dano: 20,
     level: 0,
     cash: 0,
@@ -90,15 +92,27 @@ let personagem = {
         console.log(`Quantidade de XP: ${this.xp}`);
         console.log(`################################################`);
     },
+    // Retira a vida do personagem
     retiraVida: function (valor) {
         this.vida = this.vida - valor;
+
+        if(this.vida < 1){
+            console.log("Você Morreu!");
+        }
     },
+    // Aumenta a Vida
     aumentaVida: function (valor) {
         this.vida = this.vida + valor;
+
+        if(this.vida > 100){
+            console.log("Sua vida está totalmente cheia!");
+        }
     },
+    // Escolhe o reino
     escolhaReino: function (valor) {
         this.reinoInicial = valor;
     },
+    // Define a dificuldade
     dificuldade: function (reinoInicial) {
         if (this.dificuldade == 1) {
             monstros.monstroFacil;
@@ -108,6 +122,7 @@ let personagem = {
             monstros.monstroDificil;
         }
     },
+    //Aumenta a Fome
     aumentaFome: function(){
         this.fome = 20;
 
@@ -115,6 +130,15 @@ let personagem = {
             console.log("Você morreu, Fim de Jogo!!!!")
         }
     },
+    //Aumenta o Dano do Personagem
+    aumentaDano: function(valor){
+        this.dano = this.dano = valor;
+
+        if(this.dano >= 100){
+            console.log("Seu dano está no máximo!")
+        }
+    },
+    // Diminui a FOME
     diminuiFome: function(valor){
         this.fome - valor
 
@@ -145,6 +169,12 @@ let tempoJogo = {
 
 }
 
+// FUNCTIONS
+
+function batalha(){
+
+}
+
 // INICIANDO HISTÓRIA DO GAME
 
 let confirmaAcao = 'n';
@@ -166,7 +196,7 @@ do {
 
 console.clear();
 
-// DEFININDO CIDADE DO JOGO
+// DEFININDO REINO DO JOGO
 
 console.log(`#################### ESCOLHA O REINO ####################`);
 console.log(`[1] - REINO 1`);
@@ -199,26 +229,10 @@ do {
 } while (confirmaAcao != 'sim' && confirmaAcao != 'SIM' && confirmaAcao != "s");
 
 
-let missao1 = function () {
-    if (personagem.reinoInicial == 0) {
-        console.log('teste reino 1');
-    } else if (personagem.reinoInicial == 1) {
-        console.log('teste reino 2');
-    } else if (personagem.reinoInicial == 2) {
-        console.log('teste reino 3');
-    }
-}
+// DEFININDO MISSÕES
 
-function reino1(){
+let missoes = {
 
-}
-
-function reino2(){
-    
-}
-
-function reino3(){
-    
 }
 
 
