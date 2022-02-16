@@ -297,7 +297,7 @@ function mercador() {
                     console.log("Compra realizada com sucesso!");
                     personagem.coins = personagem.coins - 100;
                     personagem.dano = personagem.dano + 15;
-                    console.log(personagem.coins);
+                    console.log('Seu saldo de coins agora é: ' + personagem.coins);
                 }
                 break;
             case 2:
@@ -308,7 +308,7 @@ function mercador() {
                     console.log("Compra realizada com sucesso!");
                     personagem.coins = personagem.coins - 200;
                     personagem.dano = personagem.dano + 20;
-                    console.log(personagem.coins);
+                    console.log('Seu saldo de coins agora é: ' + personagem.coins);
                 }
                 break;
             case 3:
@@ -319,7 +319,7 @@ function mercador() {
                     console.log("Compra realizada com sucesso!");
                     personagem.coins = personagem.coins - 300;
                     personagem.dano = personagem.dano + 25;
-                    console.log(personagem.coins);
+                    console.log('Seu saldo de coins agora é: ' + personagem.coins);
                 }
                 break;
             case 4:
@@ -330,7 +330,7 @@ function mercador() {
                     console.log("Compra realizada com sucesso!");
                     personagem.coins = personagem.coins - 400;
                     personagem.dano = personagem.dano + 30;
-                    console.log(personagem.coins);
+                    console.log('Seu saldo de coins agora é: ' + personagem.coins);
                 }
                 break;
             case 5:
@@ -341,7 +341,7 @@ function mercador() {
                     console.log("Compra realizada com sucesso!");
                     personagem.coins = personagem.coins - 30;
                     personagem.vida = personagem.vida + 30
-                    console.log(personagem.coins);
+                    console.log('Seu saldo de coins agora é: ' + personagem.coins);
                 }
                 break;
             case 6:
@@ -352,7 +352,7 @@ function mercador() {
                     console.log("Compra realizada com sucesso!");
                     personagem.coins = personagem.coins + 50;
                     personagem.vida = personagem.vida + 50
-                    console.log(personagem.coins);
+                    console.log('Seu saldo de coins agora é: ' + personagem.coins);
                 }
                 break;
             case 7:
@@ -363,7 +363,7 @@ function mercador() {
                     console.log("Compra realizada com sucesso!");
                     personagem.coins = personagem.coins - 75;
                     personagem.vida = personagem.vida + 75;
-                    console.log(personagem.coins);
+                    console.log('Seu saldo de coins agora é: ' + personagem.coins);
                 }
                 break;
             case 8:
@@ -374,7 +374,7 @@ function mercador() {
                     console.log("Compra realizada com sucesso!");
                     personagem.coins = personagem.coins - 100;
                     personagem.vida = personagem.vida + 100;
-                    console.log(personagem.coins);
+                    console.log('Seu saldo de coins agora é: ' + personagem.coins);
                 }
                 break;
             default:
@@ -697,10 +697,22 @@ function missao5() {
 
         }
     } else {
-        console.log(`Você decidiu não lutar, 
-        Sendo assim o DRAGÃO derrotou o reino ${personagem.reinoInicial}
-        e você ficou com desonra! Missão falha`)
-        batalhaPerdida++;
+        do {
+            console.log(`
+                Olá ${personagem.nome} 
+                --------------------------------------------
+                Você decidiu não lutar, Sendo assim o DRAGÃO
+                derrotou o reino ${personagem.reinoInicial}
+                e você ficou com desonra! Missão falha
+            `)
+    
+            tempoJogo.alteraTempo(20);
+            tempoJogo.informaTempo();
+            batalhaPerdida++;
+            confirmaAcao = prompt("Digite [SIM] para confirmar a mensagem: ")
+    
+        } while (confirmaAcao != 'sim' && confirmaAcao != 'SIM' && confirmaAcao != "s");
+        
     }
 }
 // ----------------------------------------------------------------------------------------------------
@@ -799,6 +811,7 @@ do {
     if (aceitaMissao == 'sim' || aceitaMissao == 's') {
         missao2();
     } else {
+        
         console.log(`
             Você decidiu continuar sua jornada sendo assim
             Você não ganhou os COINS oferecidos pelos fazendeiros
@@ -865,19 +878,23 @@ do {
 
     }
 
-    console.clear();
-    console.log();
-    console.log("Viajando para a proxima cidade!");
-    tempoJogo.alteraTempo(20);
-    tempoJogo.informaTempo();
-
-    console.log(`
-        Você chegou na ultima cidade onde você foi 
-        encarregado de matar o Dragão final que está assolando o reino e o castelo
-        principal.
-    `)
-
     // ULTIMA MISSÃO DO GAME
+    do {
+        console.log(`
+            Olá ${personagem.nome} 
+            --------------------------------------------
+            Você agora irá viajar para a cidade do castelo, 
+            para realizar a missão final
+        `)
+
+        tempoJogo.alteraTempo(10);
+        tempoJogo.informaTempo();
+
+        confirmaAcao = prompt("Digite [SIM] para confirmar a mensagem: ")
+
+    } while (confirmaAcao != 'sim' && confirmaAcao != 'SIM' && confirmaAcao != "s");
+
+
     missao5();
 
 
