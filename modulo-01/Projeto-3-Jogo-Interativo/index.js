@@ -11,6 +11,9 @@ console.log();
 let nomePersonagem = prompt('Qual o nome do seu Personagem? ');
 let idadePersonagem = +prompt('Qual a idade do seu Personagem? ');
 
+// Variaveis
+let batalhaPerdida = 0;
+
 // DEFININDO INIMIGOS
 let monstros = {
 
@@ -79,9 +82,9 @@ let monstros = {
     // INIMIGOS SEM SEREM MONSTROS
 
     inimigoFacil: {
-        nome: 'Monster 3',
+        nome: 'Ladrao',
         level: 5,
-        dano: 30,
+        dano: 10,
         frase: ["HAHAHA VOCÊ É FRACO!", "NÃO CONSEGUE ME VENCER", "TOMA ESSA"],
         vida: 100,
 
@@ -99,9 +102,9 @@ let monstros = {
     },
 
     inimigoMedio: {
-        nome: 'Monster 3',
+        nome: 'Levi',
         level: 5,
-        dano: 30,
+        dano: 15,
         frase: ["HAHAHA VOCÊ É FRACO!", "NÃO CONSEGUE ME VENCER", "TOMA ESSA"],
         vida: 100,
 
@@ -119,9 +122,9 @@ let monstros = {
     },
 
     inimigoDificil: {
-        nome: 'Monster 3',
+        nome: 'Conde Dracula',
         level: 5,
-        dano: 30,
+        dano: 20,
         frase: ["HAHAHA VOCÊ É FRACO!", "NÃO CONSEGUE ME VENCER", "TOMA ESSA"],
         vida: 100,
 
@@ -138,6 +141,22 @@ let monstros = {
         }
     },
 
+    dragao: {
+        nome: 'Dragão De Ouro',
+        dano: 40,
+
+        aumentaVida: function (valor) {
+            if (this.vida >= 100) {
+                console.log("Vida no máximo!");
+            } else {
+                this.vida = this.vida + valor;
+            }
+        },
+        retiraVida: function (valor) {
+            this.vida = this.vida - valor;
+        }
+    }
+
 }
 
 // DEFININDO O PERSONAGEM
@@ -147,8 +166,7 @@ let personagem = {
     idade: idadePersonagem,
     dano: 30,
     level: 0,
-    coins: 0,
-    fome: 0,
+    coins: 20,
     espada: "Luz das Cinzas",
     missoesFinalizadas: 0,
     reinoInicial: [],
@@ -158,9 +176,7 @@ let personagem = {
         console.log(`O nome do seu personagem é: ${this.nome}`);
         console.log(`A idade é: ${this.idade}`);
         console.log(`O level é: ${this.level}`);
-        console.log(`A força: ${this.forca}`);
         console.log(`Quantidade de Coins do personagem: ${this.coins}`);
-        console.log(`Quantidade de XP: ${this.xp}`);
         console.log(`################################################`);
     },
     // Retira a vida do personagem
@@ -210,6 +226,9 @@ let personagem = {
     aumentaLevel: function (valor) {
         this.level = this.level + valor;
         this.vida = this.vida + 20;
+    },
+    aumentaCoins: function (valor) {
+        this.coins = this.coins + valor;
     }
 }
 
@@ -246,7 +265,7 @@ function mercador() {
 
     let mercador = prompt("--> ");
 
-    while (mercador == 'sim') {
+    while (mercador == 'sim' || mercador == 's') {
         console.log(`
             -------------- ESPADAS --------------
             1 - Espada Flamejante - [100 COINS] - [DANO +15]
@@ -338,9 +357,13 @@ function mercador() {
     }
 }
 
+// ----------------------------------------------------------------------------------------------------
 // DEFININDO MISSÕES
 
 function missao1() {
+    console.clear();
+    console.log();
+    console.log();
     console.log("***** MISSÃO INICIAL *****")
     console.log();
     console.log(`Você recebeu a missão de matar um monstro que está atormentando a vila no reino de ${personagem.reino}`);
@@ -358,8 +381,12 @@ function missao1() {
 
     // Definindo inicio do combate e o loop
     if (ataque == 'sim') {
+
         let batalha = 'sim';
+
         console.log("Batalha iniciada!");
+        let fraseGerada = Math.trunc(Math.random() * 3)
+
         while (batalha == 'sim') {
             // Começando o Combate
             console.log("Em combate...")
@@ -373,13 +400,18 @@ function missao1() {
             if (ataque == 'nao') {
                 console.log(`A batalha está em adamento e você não poderá sair pois o ${monstros.monstroFacil.nome} irá te perseguir!`);
                 console.log(`O ${monstros.monstroFacil.nome} te atacou!`);
+                console.log(`${monstros.monstroFacil.frase[fraseGerada]}`);
                 personagem.retiraVida(monstros.monstroFacil.dano);
                 console.log(`Você está com ${personagem.vida} de vida!`);
             }
             if (personagem.vida <= 0) {
                 console.log(`Batalha encerrada! O ${monstros.monstroFacil.nome} Venceu!!!`);
+                console.log(`Você não morreu, mas perdeu pontos com o reino! isso será relembrado no futuro`);
+                batalhaPerdida++;
                 batalha = 'nao';
             } else if (monstros.monstroFacil.vida <= 0) {
+                personagem.aumentaLevel(2);
+                personagem.aumentaCoins(120);
                 console.log(`Batalha encerrada! O ${personagem.nome} Venceu!!!`);
                 console.log(`Seu level agora é ${personagem.level}`)
                 console.log(`Você recebeu ${personagem.coins} coins por ter completado a missão!`);
@@ -387,14 +419,15 @@ function missao1() {
                 batalha = 'nao';
             }
         }
-    }
-    else {
+    } else {
         console.log("Você perdeu muitos pontos iniciais com o reino");
     }
 }
-
+// ----------------------------------------------------------------------------------------------------
 // MISSÃO 2 DA FAZENDA 
-function missao2(valor) {
+function missao2() {
+    console.clear();
+    console.log();
     console.log("***** MISSÃO SECUNDÁRIA *****")
     console.log();
     console.log("Indo até o pantano...");
@@ -416,6 +449,7 @@ function missao2(valor) {
     if (ataque == 'sim') {
         let batalha = 'sim';
         console.log("Batalha iniciada!");
+        let fraseGerada = Math.trunc(Math.random() * 3)
         while (batalha == 'sim') {
             // Começando o Combate
             console.log("Em combate...")
@@ -436,6 +470,8 @@ function missao2(valor) {
                 console.log(`Batalha encerrada! O ${monstros.monstroMedio.nome} Venceu!!!`);
                 batalha = 'nao';
             } else if (monstros.monstroMedio.vida <= 0) {
+                personagem.aumentaLevel(2);
+                personagem.aumentaCoins(120);
                 console.log(`Batalha encerrada! O ${personagem.nome} Venceu!!!`);
                 console.log(`Seu level agora é ${personagem.level}`)
                 console.log(`Você recebeu ${personagem.coins} coins por ter completado a missão!`);
@@ -443,24 +479,203 @@ function missao2(valor) {
                 batalha = 'nao';
             }
         }
-    }
-    else {
+    } else {
         console.log("Você perdeu muitos pontos iniciais com o reino");
     }
 }
+// ----------------------------------------------------------------------------------------------------
+function missao3() {
+    console.clear();
+    console.log();
+    console.log("***** MISSÃO DA OPÇÃO 1 *****")
+    console.log();
+    console.log(`
+            ************ INFOS ***************
+            Um bando de saqueadores estão roubando
+            as pessoas, eles estão escondidos em uma
+            floresta, va lá e mate-os!
+        `)
+    console.log("Rastreando saqueadores...")
+    console.log("Você encontrou os saqueadores.")
 
-function missao3(valor) {
+    console.log("Deseja atacar? [SIM] - [NAO]")
+    let ataque = prompt("---> ");
 
+    while (ataque != 'sim' && ataque != 'nao' && ataque != 's' && ataque != 'n') {
+        console.log("Opção inválida, digite [SIM] ou [NÃO]");
+        ataque = prompt("---> ");
+    }
+
+    // Definindo inicio do combate e o loop
+    if (ataque == 'sim') {
+        let batalha = 'sim';
+        console.log("Batalha iniciada!");
+        let fraseGerada = Math.trunc(Math.random() * 8)
+        while (batalha == 'sim') {
+            // Começando o Combate
+            console.log("Em combate...")
+            console.log("Atacar? [SIM] - [NAO] ");
+            ataque = prompt("---> ");
+
+            if (ataque == 'sim') {
+                console.log(`Você atacou o ${monstros.inimigoFacil.nome}`);
+                monstros.inimigoFacil.retiraVida(personagem.dano);
+                console.log(`A vida do ${monstros.inimigoFacil.nome} é ${monstros.inimigoFacil.vida}`);
+
+                // Inimigo atacando
+                const danoAtaque = Math.floor(Math.random() * 10);
+                console.log(`O ${monstros.inimigoFacil.nome} também realizou um ataque tirando de você ${danoAtaque} de vida`)
+                personagem.retiraVida(danoAtaque);
+            }
+            if (ataque == 'nao') {
+                console.log(`A batalha está em adamento e você não poderá sair pois o ${monstros.inimigoFacil.nome} irá te perseguir!`);
+                console.log(`O ${monstros.inimigoFacil.nome} te atacou pois você tentou fugir!`);
+                personagem.retiraVida(monstros.inimigoFacil.dano);
+                console.log(`Você está com ${personagem.vida} de vida!`);
+            }
+            if (personagem.vida <= 0) {
+                console.log(`Batalha encerrada! O ${monstros.inimigoFacil.nome} Venceu!!!`);
+                batalha = 'nao';
+            } else if (monstros.inimigoFacil.vida <= 0) {
+                personagem.aumentaLevel(2);
+                personagem.aumentaCoins(250);
+                personagem.aumentaVida(50)
+                console.log(`Batalha encerrada! O ${personagem.nome} Venceu!!!`);
+                console.log(`Seu level agora é ${personagem.level}`)
+                console.log(`Você recebeu ${personagem.coins} coins por ter completado a missão!`);
+                personagem.status();
+                batalha = 'nao';
+            }
+
+        }
+    } else {
+        console.log("Você perdeu muitos pontos iniciais com o reino");
+        batalhaPerdida++;
+    }
 }
+// ----------------------------------------------------------------------------------------------------
+function missao4() {
+    console.clear();
+    console.log();
+    console.log("***** TERCEIRA MISSÃO *****")
+    console.log();
+    console.log("Deseja atacar? [SIM] - [NAO]")
+    let ataque = prompt("---> ");
 
-function missao4(valor) {
+    while (ataque != 'sim' && ataque != 'nao' && ataque != 's' && ataque != 'n') {
+        console.log("Opção inválida, digite [SIM] ou [NÃO]");
+        ataque = prompt("---> ");
+    }
 
+    // Definindo inicio do combate e o loop
+    if (ataque == 'sim') {
+        let batalha = 'sim';
+        console.log("Batalha iniciada!");
+        let fraseGerada = Math.trunc(Math.random() * 3)
+        while (batalha == 'sim') {
+            // Começando o Combate
+            console.log("Em combate...")
+            console.log("Atacar? [SIM] - [NAO] ");
+            ataque = prompt("---> ");
+            if (ataque == 'sim') {
+                console.log(`Você atacou o ${monstros.monstroDificil.nome}`);
+                monstros.monstroDificil.retiraVida(personagem.dano);
+                console.log(`A vida do ${monstros.monstroDificil.nome} é ${monstros.monstroDificil.vida}`);
+            }
+            if (ataque == 'nao') {
+                console.log(`A batalha está em adamento e você não poderá sair pois o ${monstros.monstroDificil.nome} irá te perseguir!`);
+                console.log(`O ${monstros.monstroDificil.nome} te atacou!`);
+                personagem.retiraVida(monstros.monstroDificil.dano);
+                console.log(`Você está com ${personagem.vida} de vida!`);
+            }
+            if (personagem.vida <= 0) {
+                console.log(`Batalha encerrada! O ${monstros.monstroDificil.nome} Venceu!!!`);
+                batalha = 'nao';
+            } else if (monstros.monstroDificil.vida <= 0) {
+                personagem.aumentaLevel(2);
+                personagem.aumentaCoins(120);
+                console.log(`Batalha encerrada! O ${personagem.nome} Venceu!!!`);
+                console.log(`Seu level agora é ${personagem.level}`)
+                console.log(`Você recebeu ${personagem.coins} coins por ter completado a missão!`);
+                personagem.status();
+                batalha = 'nao';
+            }
+        }
+    } else {
+        console.log("Você perdeu muitos pontos iniciais com o reino");
+    }
 }
+// ----------------------------------------------------------------------------------------------------
+function missao5() {
+    console.clear();
+    console.log();
+    console.log("***** MISSÃO FINAL *****")
+    console.log();
+    console.log(`
+            ************ INFOS ***************
+            Um dragão está atacando o reino, você
+            precisa dete-lo antes que ele mate a 
+            todos.
+        `)
+    console.log();
+    console.log("Deseja atacar? [SIM] - [NAO]")
+    let ataque = prompt("---> ");
 
-function missao5(valor) {
+    while (ataque != 'sim' && ataque != 'nao' && ataque != 's' && ataque != 'n') {
+        console.log("Opção inválida, digite [SIM] ou [NÃO]");
+        ataque = prompt("---> ");
+    }
 
+    // Definindo inicio do combate e o loop
+    if (ataque == 'sim') {
+        let batalha = 'sim';
+        console.log("Batalha iniciada!");
+        let fraseGerada = Math.trunc(Math.random() * 8)
+        while (batalha == 'sim') {
+            // Começando o Combate
+            console.log("Em combate...")
+            console.log("Atacar? [SIM] - [NAO] ");
+            ataque = prompt("---> ");
+
+            if (ataque == 'sim') {
+                console.log(`Você atacou o ${monstros.dragao.nome}`);
+                monstros.dragao.retiraVida(personagem.dano);
+                console.log(`A vida do ${monstros.dragao.nome} é ${monstros.dragao.vida}`);
+
+                // Inimigo atacando
+                const danoAtaque = Math.floor(Math.random() * 10);
+                console.log(`O ${monstros.dragao.nome} também realizou um ataque tirando de você ${danoAtaque} de vida`)
+                personagem.retiraVida(danoAtaque);
+            }
+            if (ataque == 'nao') {
+                console.log(`A batalha está em adamento e você não poderá sair pois o ${monstros.dragao.nome} irá te perseguir!`);
+                console.log(`O ${monstros.dragao.nome} te atacou pois você tentou fugir!`);
+                personagem.retiraVida(monstros.dragao.dano);
+                console.log(`Você está com ${personagem.vida} de vida!`);
+            }
+            if (personagem.vida <= 0) {
+                console.log(`Batalha encerrada! O ${monstros.dragao.nome} Venceu!!!`);
+                batalha = 'nao';
+            } else if (monstros.dragao.vida <= 0) {
+                personagem.aumentaLevel(2);
+                personagem.aumentaCoins(250);
+                personagem.aumentaVida(50)
+                console.log(`Batalha encerrada! O ${personagem.nome} Venceu!!!`);
+                console.log(`Seu level agora é ${personagem.level}`)
+                console.log(`Você recebeu ${personagem.coins} coins por ter completado a missão!`);
+                personagem.status();
+                batalha = 'nao';
+            }
+
+        }
+    } else {
+        console.log(`Você decidiu não lutar, 
+        Sendo assim o DRAGÃO derrotou o reino ${personagem.reinoInicial}
+        e você ficou com desonra! Missão falha`)
+        batalhaPerdida++;
+    }
 }
-
+// ----------------------------------------------------------------------------------------------------
 // INICIANDO O GAME
 
 
@@ -490,15 +705,20 @@ do {
     console.log();
 
     // ESCOLHENDO O REINO
-    let reinos = ['TEMERIA', 'TESTE 1', 'TESTE 2'];
+    let reinos = ['TEMERIA', 'ALABASTA', 'NILFIGARD'];
     console.log("Escolha o reino para iniciar suas missões!");
     for (reino of reinos) {
         console.log(reino);
     }
-    personagem.reinoInicial.push();
+    digiteReino = prompt("Digite o nome de algum dos três reinos acima! ");
+    personagem.reinoInicial.push(digiteReino);
+
+    console.clear();
 
     // DEFININDO MISSÃO INICIAL DO REINO ESCOLHIDO
 
+    console.log();
+    console.log();
     confirmaAcao = 'n';
 
     do {
@@ -508,10 +728,9 @@ do {
             Você recebeu uma missão inicial do reino para
             mostrar o seu valor! 
             ---------------------------------------------
-            ${tempoJogo.informaTempo()}
         `)
 
-
+        tempoJogo.informaTempo()
         confirmaAcao = prompt("Digite [SIM] para confirmar a mensagem: ")
 
     } while (confirmaAcao != 'sim' && confirmaAcao != 'SIM' && confirmaAcao != "s");
@@ -535,11 +754,15 @@ do {
     tempoJogo.alteraTempo(4);
     tempoJogo.informaTempo();
     console.log(`
+
+            ----------- SECUNDÁRIA -----------
             Você está passando por uma fazenda 
             e um cidadão te ofereceu uma missão
             para matar um monstro que fica em um
             pantano proximo de sua fazenda e ele está
-            matando os fazendeiros, você aceita fazer essa missão secundária?
+            matando os fazendeiros, você aceita fazer essa 
+            missão secundária?
+
             [SIM] ou [NAO]
       `)
 
@@ -552,24 +775,98 @@ do {
             Você decidiu continuar sua jornada sendo assim
             Você não ganhou os COINS oferecidos pelos fazendeiros
             nem os pontos para subir de level.
+            [Isso será lembrado no futuro!]
           `)
-
+        batalhaPerdida++;
     }
 
     tempoJogo.alteraTempo(7);
     tempoJogo.informaTempo();
 
+    console.clear();
+
     // SEGUNDA MISSÃO - VARIADAS
     console.log(`
-        VOCÊ CHEGOU A CIDADE DE ALABASTA
-        NESTA CIDADE VOCÊ PODE ESCOLHER 
-        TRÊS MISSÕES DISPONÍVEIS E TAMBÉM
-        COMPRAR NOVAS ARMAS!!!
-        [1] - MISSÃO FACIL - 
-      `)
-    // TERCEIRA MISSÃO QUE VEM AO JOGADOR ACEITAR A SEGUNDA MISSÃO - SÓ APARECE CASO ELE ACEITE A SEGUNDA
+    VOCÊ CHEGOU A CIDADE DE ALABASTA
+    NESTA CIDADE VOCÊ PODE ESCOLHER 
+    TRÊS MISSÕES DISPONÍVEIS E TAMBÉM
+    COMPRAR NOVAS ARMAS!!!
+    `)
 
-    // QUARTA MISSÃO DEPOIS DE UMA LONGA JORNADA
+    let segundaMissao = 'sim'
+
+    while (segundaMissao == 'sim') {
+        console.log(`
+    --------------------------------------------
+    [1] - MISSÃO FACIL - MATE ALGUNS SOLDADOS QUE ESTÃO EM UMA 
+    FLORESTA PROXIMO ESCONDIDOS, ELES ESTÃO SAQUEANDO AS PESSOAS
+    QUE PASSAM PROXIMO!
+    --------------------------------------------
+    [2] - MISSÃO MEDIA - UM MONSTRO ESTÁ DEVORANDO PESSOAS
+    --------------------------------------------
+    [3] - MERCADOR - AQUI VOCÊ PODE COMPRAR NOVAS ESPADAS E REABASTECER SUA VIDA!
+    --------------------------------------------
+    [4] - CONTINUAR A HISTÓRIA
+    --------------------------------------------
+    DICA: FAÇA TODAS AS MISSÕES PARA GANHAR COINS PARA MATAR O BOS FINAL M
+    MAIS FÁCIL
+    --------------------------------------------
+     `)
+
+        let escolhaMissao = +prompt("--> ")
+
+        if (escolhaMissao == 1) {
+            missao3();
+        }
+        if (escolhaMissao == 2) {
+            if (batalhaPerdida >= 1) {
+                console.log(`
+                Você não poderá realizar essa missão no momento pois
+                Você perdeu ou não batalhou missões disponíveis! 
+                Ganhe mais honra para lutar essa missão`)
+            } else {
+                missao4();
+            }
+        }
+        if (escolhaMissao == 3) {
+            mercador();
+        }
+        if (escolhaMissao == 4) {
+            segundaMissao = 'nao';
+        }
+
+    }
+
+    console.clear();
+    console.log();
+    console.log("Viajando para a proxima cidade!");
+    tempoJogo.alteraTempo(20);
+    tempoJogo.informaTempo();
+
+    console.log(`
+        Você chegou na ultima cidade onde você foi 
+        encarregado de matar o Dragão final que está assolando o reino e o castelo
+        principal.
+    `)
+
+    // ULTIMA MISSÃO DO GAME
+    missao5();
+
+
+    console.clear();
+    console.log();
+    console.log(`
+        =================================================================
+
+        OBRIGADO POR JOGAR, ESSE FOI UM JOGO DESENVOLVIDO PARA PRATICAR 
+        O QUE FOI ENSINADO NO MODULO 1 DO CURSO DA BLUE.
+        FICO MUITO FELIZ EM ESTÁ FAZENDO ESSE PROJETO!
+
+        Meu github: https://github.com/lucasalexsandro
+        Meu LinkedIn: https://www.linkedin.com/in/lucasalexsandro/
+
+        =================================================================
+    `)
 
     // PERGUNTANDO SE O JOGADOR DESEJA JOGAR NOVAMENTE!;
     console.log("------------------------------------------------------------------")
