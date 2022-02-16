@@ -144,6 +144,8 @@ let monstros = {
     dragao: {
         nome: 'Dragão De Ouro',
         dano: 40,
+        vida: 200,
+        level: 10,
 
         aumentaVida: function (valor) {
             if (this.vida >= 100) {
@@ -259,6 +261,7 @@ let tempoJogo = {
 function mercador() {
     console.log("-------------------------- MERCADOR --------------------------------")
     console.log();
+    console.log('Seus saldo de coins é: ' + personagem.coins);
     console.log(`Você encontrou um mercador no caminho, 
                  deseja comprar uma espada mais forte? 
                  [SIM] ou [NAO]`);
@@ -336,18 +339,43 @@ function mercador() {
                     console.log("Você não tem saldo suficiente!");
                 } else {
                     console.log("Compra realizada com sucesso!");
-                    personagem.coins = personagem.coins - 100;
+                    personagem.coins = personagem.coins - 30;
+                    personagem.vida = personagem.vida + 30
                     console.log(personagem.coins);
                 }
                 break;
             case 6:
-                console.log("Compra 1");
+                console.log("Validando compra...");
+                if (personagem.coins < 50) {
+                    console.log("Você não tem saldo suficiente!");
+                } else {
+                    console.log("Compra realizada com sucesso!");
+                    personagem.coins = personagem.coins + 50;
+                    personagem.vida = personagem.vida + 50
+                    console.log(personagem.coins);
+                }
                 break;
             case 7:
-                console.log("Compra 1");
+                console.log("Validando compra...");
+                if (personagem.coins < 75) {
+                    console.log("Você não tem saldo suficiente!");
+                } else {
+                    console.log("Compra realizada com sucesso!");
+                    personagem.coins = personagem.coins - 75;
+                    personagem.vida = personagem.vida + 75;
+                    console.log(personagem.coins);
+                }
                 break;
             case 8:
-                console.log("Compra 1");
+                console.log("Validando compra...");
+                if (personagem.coins < 100) {
+                    console.log("Você não tem saldo suficiente!");
+                } else {
+                    console.log("Compra realizada com sucesso!");
+                    personagem.coins = personagem.coins - 100;
+                    personagem.vida = personagem.vida + 100;
+                    console.log(personagem.coins);
+                }
                 break;
             default:
                 console.log("O item informado não existe no mercado.")
